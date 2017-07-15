@@ -1,6 +1,10 @@
 #!/bin/bash
 
-JDK_DIR=/usr/lib/jvm/jdk8
+JVM_DIR=/usr/lib/jvm
+JDK_VER=jdk8
+JDK_DIR=$JVM_DIR/$JDK_VER
+JAVA_URL="http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz"
+
 TMP_DIR=/tmp
 JAVA_TYPES="java javac javaws jar"
 
@@ -11,8 +15,13 @@ if [ -z ${USER_HOME+z} ]; then
 fi
 
 cd $TMP_DIR
-wget -O jdk8-linux.tar.gz --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie"  "http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz"
-tar xvfz jdk8-linux.tar.gz
+wget --no-check-certificate \
+  --no-cookies \
+  --header "Cookie: oraclelicense=accept-securebackup-cookie" \
+  -O $JDK_VER-linux.tar.gz \
+  $JAVA_URL
+tar xvfz $JDK_VER-linux.tar.gz
+mkdir $JVM_DIR
 mv jdk1.* $JDK_DIR
 
 function set_java_types {
