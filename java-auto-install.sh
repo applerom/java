@@ -40,6 +40,7 @@ function set_java_home {
     echo "There is JAVA_HOME in $1 - skip adding."
   else
     cat <<EOF >>$1
+## Java home settings
 JAVA_HOME=$JDK_DIR
 export JAVA_HOME
 JDK_HOME=$JDK_DIR
