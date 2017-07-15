@@ -18,6 +18,7 @@ mv jdk1.* $JDK_DIR
 java -version
 
 function set_java_types {
+  update-alternatives --install /usr/bin/$1 $1 /usr/lib/jvm/jdk8/bin/$1 1
   update-alternatives --set $1 $JDK_DIR/bin/$1
   ls -la /etc/alternatives/$1
 }
