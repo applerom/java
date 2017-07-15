@@ -1,43 +1,49 @@
 #!/bin/bash
 
-JDK_DIR=/usr/lib/jvm/jdk8
-TMP_DIR=/tmp
-JAVA_TYPES="java javac javaws jar"
-
-## set custom if you want, to example:
-## sudo USER_HOME=/home/ubuntu bash -c "$(wget -q -O- https://raw.githubusercontent.com/applerom/linuxcmd/master/start.sh)"
-if [ -z ${USER_HOME+z} ]; then
-	USER_HOME=$PWD # use current directory as home
+# check for root at first!"
+if [[ $UID != 0 ]] ; then 
+    echo "Run only under root! Add sudo at the begin and repeat your command again."
+    echo "Ex.:"
+    echo 'sudo USER_HOME=/some/user/dir bash -c "$(wget -q -O- https://raw.githubusercontent.com/applerom/java-auto-install/master/install.sh)"'
+    echo "=========================================================="
+    exit 1
 fi
 
-cd $TMP_DIR
-wget -O jdk8-linux.tar.gz --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie"  "http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz"
-tar xvfz jdk8-linux.tar.gz
-mv jdk1.* $JDK_DIR
+# create tmp dir"
+MY_TMP_DIR=$(mktemp -d /tmp/my_script.XXX) # create_tmp_dir
+trap "rm -R ${MY_TMP_DIR}" SIGTERM SIGINT EXIT
+if [[ ! -O ${MY_TMP_DIR} ]]; then # Check that the dir exists and is owned by our euid (root)
+	echo "Unable to create temporary directory MY_TMP_DIR."
+	echo "=========================================================="
+	exit 1
+fi
+chmod 700 $MY_TMP_DIR
 
-java -version
+# check for git"
+if ! which git > /dev/null 2> /dev/null ; then
+    echo "___Install git"
+    if which yum > /dev/null 2> /dev/null ; then
+        yum install -y git
+    fi
+    if which apt-get > /dev/null 2> /dev/null ; then
+        apt-get update
+        apt-get install -y git
+    fi
+    if which zypper > /dev/null 2> /dev/null ; then
+        zypper install -y git
+    fi
+    echo "=========================================================="
+fi
 
-function set_java_types {
-  update-alternatives --set $1 $JDK_DIR/bin/$1
-  ls -la /etc/alternatives/$1
-}
+echo "___ clone from git to tmp $MY_TMP_DIR"
+cd $MY_TMP_DIR
+git clone https://github.com/applerom/java-auto-install
+echo "=========================================================="
 
-for i in $JAVA_TYPES; do set_java_types $i; done
+cd java-auto-install
+chmod +x install.sh
 
-function set_java_home {
-  if cat $1 | grep "JAVA_HOME" ; then # protect from repeating
-    echo "There is JAVA_HOME in $1 - skip adding."
-  else
-    cat <<EOF >>$1
-JAVA_HOME=$JDK_DIR
-export JAVA_HOME
-JDK_HOME=$JDK_DIR
-export JDK_HOME
-PATH=\$PATH:\$JDK_HOME/bin
-export PATH
-EOF
-  fi
-}
+./install.sh
+echo "=========================================================="
 
-set_java_home $USER_HOME/.bashrc
-set_java_home /root/.bashrc
+exit 0
