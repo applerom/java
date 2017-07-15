@@ -2,33 +2,33 @@
 
 Get script from this GIT and run (in the one line command):
 
-* sudo bash -c "$(wget -q -O- https://raw.githubusercontent.com/applerom/java-auto-install/master/start.sh)"
+* sudo bash -c "$(wget -q -O- https://raw.githubusercontent.com/applerom/java-auto-install/master/install.sh)"
 
 or
 
-* sudo USER_HOME=/some/user/dir bash -c "$(wget -q -O- https://raw.githubusercontent.com/applerom/java-auto-install/master/start.sh)"
+* sudo USER_HOME=/some/user/dir bash -c "$(wget -q -O- https://raw.githubusercontent.com/applerom/java-auto-install/master/install.sh)"
 
 or (for distrs with curl istead wget by default)
 
-* sudo bash -c "$(curl https://raw.githubusercontent.com/applerom/java-auto-install/master/start.sh)"
+* sudo bash -c "$(curl https://raw.githubusercontent.com/applerom/java-auto-install/master/install.sh)"
 
 or
 
-* sudo bash -c -x "$(wget -q -O- https://raw.githubusercontent.com/applerom/java-auto-install/master/start.sh)" > 1.txt
+* sudo bash -c -x "$(wget -q -O- https://raw.githubusercontent.com/applerom/java-auto-install/master/install.sh)" > 1.txt
 
 For common use:
 
 * cd /usr/local/src
 * git clone https://github.com/applerom/java-auto-install
 * cd java-auto-install
-* chmod +x java-auto-install.sh
+* chmod +x install.sh
 
 and
 
-* ./java-auto-install.sh
+* ./install.sh
 
 or
 
-* sudo bash ./java-auto-install.sh
+* sudo bash ./install.sh
 
 p.s. Подробности на русском: https://linuxcmd.ru
