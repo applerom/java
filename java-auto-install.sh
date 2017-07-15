@@ -4,7 +4,7 @@
 if [[ $UID != 0 ]] ; then 
     echo "Run only under root! Add sudo at the begin and repeat your command again."
     echo "Ex.:"
-    echo 'sudo USER_HOME=/some/user/dir bash -c "$(wget -q -O- https://raw.githubusercontent.com/applerom/java-auto-install/master/install.sh)"'
+    echo 'sudo USER_HOME=/some/user/dir bash -c "$(wget -q -O- https://raw.githubusercontent.com/applerom/java-auto-install/master/start.sh)"'
     echo "=========================================================="
     exit 1
 fi
@@ -41,9 +41,9 @@ git clone https://github.com/applerom/java-auto-install
 echo "=========================================================="
 
 cd java-auto-install
-chmod +x install.sh
+chmod +x java-auto-install.sh
 
-./install.sh
+./java-auto-install.sh
 echo "=========================================================="
 
 exit 0
