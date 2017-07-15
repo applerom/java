@@ -15,17 +15,18 @@ wget -O jdk8-linux.tar.gz --no-check-certificate --no-cookies --header "Cookie: 
 tar xvfz jdk8-linux.tar.gz
 mv jdk1.* $JDK_DIR
 
-java -version
-
 function set_java_types {
   update-alternatives --install /usr/bin/$1 $1 /usr/lib/jvm/jdk8/bin/$1 1
   update-alternatives --set $1 $JDK_DIR/bin/$1
   ls -la /etc/alternatives/$1
 }
 
+java -version
 for i in $JAVA_TYPES; do set_java_types $i; done
+java -version
 
 function set_java_home {
+  echo "set_java_home in $1"
   if cat $1 | grep "JAVA_HOME" ; then # protect from repeating
     echo "There is JAVA_HOME in $1 - skip adding."
   else

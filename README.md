@@ -6,7 +6,7 @@ Get script from this GIT and run (in the one line command):
 
 or
 
-* sudo USER_HOME=/some/user/dir bash -c "$(wget -q -O- https://raw.githubusercontent.com/applerom/java-auto-install/master/start.sh)"
+* sudo USER_HOME=/home/ec2-user bash -c "$(wget -q -O- https://raw.githubusercontent.com/applerom/java-auto-install/master/start.sh)"
 
 or (for distrs with curl istead wget by default)
 
