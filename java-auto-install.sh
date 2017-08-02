@@ -21,7 +21,7 @@ wget --no-check-certificate \
   -O $JDK_VER-linux.tar.gz \
   $JAVA_URL
 tar xvfz $JDK_VER-linux.tar.gz
-mkdir $JVM_DIR
+mkdir -p $JVM_DIR || true
 mv jdk1.* $JDK_DIR
 
 function set_java_types {
