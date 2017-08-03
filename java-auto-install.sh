@@ -20,7 +20,7 @@ wget --no-check-certificate \
   --header "Cookie: oraclelicense=accept-securebackup-cookie" \
   -O $JDK_VER-linux.tar.gz \
   $JAVA_URL
-tar xvfz $JDK_VER-linux.tar.gz
+tar xfz $JDK_VER-linux.tar.gz
 mkdir -p $JVM_DIR || true
 mv jdk1.* $JDK_DIR
 
