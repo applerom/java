@@ -23,6 +23,7 @@ wget --no-check-certificate \
 tar xfz $JDK_VER-linux.tar.gz
 mkdir -p $JVM_DIR || true
 mv jdk1.* $JDK_DIR
+rm $JDK_VER-linux.tar.gz
 
 function set_java_types {
   update-alternatives --install /usr/bin/$1 $1 /usr/lib/jvm/jdk8/bin/$1 1
